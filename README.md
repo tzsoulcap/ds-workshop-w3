@@ -12,7 +12,7 @@ Creating virtual environments name "ds_env"
 ```
 Activate virtual environments (MacOS)
 ```bash
-  sourse ds_env/bin/activate
+  source ds_env/bin/activate
 ```
 Activate virtual environments (Windows)
 ```bash
