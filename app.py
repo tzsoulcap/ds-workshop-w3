@@ -27,7 +27,7 @@ with open('serialized_model.json', 'r') as fin:
 st.title('TSLA Stock Price Predictive Model')
 
 st.slider('Select periods (Day)', min_value=1, max_value=100, value=50, step=1, key='day')
-st.write(st.session_state['day'])
+st.write(f"{st.session_state['day']} Days")
 
 future = m.make_future_dataframe(periods=st.session_state['day'], freq='D')
 forecast = m.predict(future)
