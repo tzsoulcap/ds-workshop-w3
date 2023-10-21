@@ -15,7 +15,7 @@ def join_data(df1, df2):
     df1 = df1.loc[df2.shape[0]:, ['ds', 'yhat']]  \
            .rename(columns={'ds': 'Date', 'yhat': 'Close'})
     df = pd.concat([df1, df2], axis=0).reset_index(drop=True)
-    df['Date'] = pd.to_datetime(df['Date'].astype(str), format='%Y-%m-%d')
+    df['Date'] = pd.to_datetime(df['Date'].astype(str), format='ISO8601')
     df = df.sort_values(by='Date', ascending=False).reset_index(drop=True)
     return df
 
@@ -24,7 +24,7 @@ def join_data(df1, df2):
 with open('serialized_model.json', 'r') as fin:
     m = model_from_json(fin.read())  # Load model
 
-st.title('Predictive Model')
+st.title('TSLA Stock Price Predictive Model')
 
 st.slider('Select periods (Day)', min_value=1, max_value=100, value=50, step=1, key='day')
 st.write(st.session_state['day'])
@@ -37,4 +37,4 @@ st.write(figure)
 
 predicted = join_data(forecast, load_data())
 st.write(px.line(predicted, x='Date', y='Close'))
-st.write(predicted)
+st.data_editor(predicted, disabled=True)
